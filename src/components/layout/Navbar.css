@@ -1,0 +1,92 @@
+.navbar {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  margin: 0 auto;
+  width: auto;
+  max-width: 1200px;
+  background: var(--bg-nav);
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  border-radius: 12px;
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+  animation: fadeIn 0.8s ease both;
+}
+
+.navbar-logo {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.navbar-links a {
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: var(--text-primary);
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.navbar-links a:hover,
+.navbar-links a.active {
+  color: var(--gold);
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.navbar-icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.navbar-icon-btn:hover {
+  color: var(--gold);
+}
+
+.cart-btn {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--gold);
+  color: var(--bg);
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}

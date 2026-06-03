@@ -1,5 +1,15 @@
+import Hero from '../../components/sections/Hero'
+import FeaturedProducts from '../../components/sections/FeaturedProducts'
+import Categories from '../../components/sections/Categories'
+
 function Home() {
-  return <div>Home Page</div>;
+  return (
+    <>
+      <Hero />
+      <FeaturedProducts />
+      <Categories />
+    </>
+  )
 }
 
-export default Home;
+export default Home
