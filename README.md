@@ -1,16 +1,52 @@
-# React + Vite
+# Velora
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+E-commerce web app built with React + Vite.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** — UI
+- **Vite 8** — dev server, bundler
+- **ESLint** — linting
 
-## React Compiler
+## Project Structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```
+src/
+├── App.jsx                        # Root component (currently default Vite template)
+├── main.jsx                       # Entry point
+├── components/
+│   ├── cards/
+│   │   └── ProductCard.jsx        # Product card component
+│   └── layout/
+│       ├── Navbar.jsx             # Top navigation
+│       └── Footer.jsx             # Footer
+├── sections/
+│   ├── Hero.jsx                   # Hero/banner section
+│   ├── FeaturedProducts.jsx       # Featured products grid
+│   └── Categories.jsx             # Product categories
+└── pages/
+    ├── Home/Home.jsx              # Landing page
+    ├── Shop/Shop.jsx              # All products listing
+    ├── Product/Product.jsx        # Single product detail
+    └── Cart/Cart.jsx              # Shopping cart
+```
 
-## Expanding the ESLint configuration
+## Dev Setup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev        # http://localhost:5173
+```
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server with HMR |
+| `npm run build` | Production build |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint |
+
+## Status
+
+Early scaffold — all pages and components are stubs. UI implementation pending.
