@@ -1,0 +1,1 @@
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}to{transform:scale(1)}}a:hover{color:#ff2d55;transition:all .3s;transform:scale(1.1)}div[style*=cart]:hover{transform:scale(1.2)}
