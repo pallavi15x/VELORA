@@ -13,7 +13,12 @@ function ProductCard({ product }) {
   return (
     <Link to={`/product/${product.id}`} className="product-card">
       <div className="product-card-image-wrap">
-        <img src={product.image} alt={product.name} loading="lazy" />
+        <img
+          src={product.image}
+          alt={product.name}
+          loading="lazy"
+          onError={e => { e.currentTarget.style.display = 'none' }}
+        />
         <div className="product-card-overlay">
           <button className="product-card-add-btn" onClick={handleAddToCart}>
             ADD TO CART
