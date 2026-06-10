@@ -4,14 +4,29 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/VELORA/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Apply dark theme instantly before React hydrates — prevents white flash on refresh -->
+    <script>
+      (function(){
+        var t = localStorage.getItem('velora-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
+    <!-- Font preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- DNS prefetch for image CDNs to speed up product image loading -->
+    <link rel="dns-prefetch" href="https://m.media-amazon.com" />
+    <link rel="dns-prefetch" href="https://rukminim2.flixcart.com" />
+    <link rel="dns-prefetch" href="https://img105.savana.com" />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+    <link rel="dns-prefetch" href="https://images-eu.ssl-images-amazon.com" />
+    <!-- Fonts — display=swap prevents FOIT -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <title>VELORA — Fashion That Defines You</title>
-    <script type="module" crossorigin src="/VELORA/assets/index-DaS0Q-N-.js"></script>
-    <link rel="stylesheet" crossorigin href="/VELORA/assets/index-Ta0J5Anf.css">
+    <script type="module" crossorigin src="/VELORA/assets/index-CcjOAnjb.js"></script>
+    <link rel="stylesheet" crossorigin href="/VELORA/assets/index-CKNRsBYh.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"></div>
   </body>
 </html>
