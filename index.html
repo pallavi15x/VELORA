@@ -2,14 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VELORA | Haute Couture &amp; Luxury Fashion</title>
+    <!-- Apply dark theme instantly before React hydrates — prevents white flash on refresh -->
+    <script>
+      (function(){
+        var t = localStorage.getItem('velora-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
+    <!-- Font preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <!-- DNS prefetch for image CDNs to speed up product image loading -->
+    <link rel="dns-prefetch" href="https://m.media-amazon.com" />
+    <link rel="dns-prefetch" href="https://rukminim2.flixcart.com" />
+    <link rel="dns-prefetch" href="https://img105.savana.com" />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+    <link rel="dns-prefetch" href="https://images-eu.ssl-images-amazon.com" />
+    <!-- Fonts — display=swap prevents FOIT -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;500;600&family=Cinzel:wght@700&family=Playfair+Display:ital,wght@0,700;1,700&family=Syne:wght@800&family=Italiana&display=swap" rel="stylesheet" />
+    <title>VELORA — Fashion That Defines You</title>
   </head>
-  <body style="margin: 0; background-color: #050505; overflow-x: hidden;">
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

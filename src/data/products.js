@@ -1,125 +1,118 @@
-const U = (id, w = 400, h = 520) =>
-  `https://images.unsplash.com/photo-${id}?w=${w}&h=${h}&fit=crop&auto=format&q=80`
+const FALLBACK = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="530" viewBox="0 0 400 530"><rect width="400" height="530" fill="#16161e"/><rect x="0" y="0" width="400" height="530" fill="url(#g)"/><defs><linearGradient id="g" x1="0" y1="0" x2="400" y2="530" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#c084fc" stop-opacity="0.08"/><stop offset="1" stop-color="#f472b6" stop-opacity="0.08"/></linearGradient></defs><text x="200" y="245" text-anchor="middle" fill="#8b87a8" font-size="48">VELORA</text><text x="200" y="290" text-anchor="middle" fill="#5a567a" font-size="14">Image loading...</text></svg>');
+
+const womenSarees = [
+  { id: 1, name: 'Tissue Silk Saree', price: 2499, original: 4999, category: 'sarees', gender: 'women', badge: 'Bestseller', image: 'https://m.media-amazon.com/images/I/71-SaGH80pL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Elegant Tissue silk with intricate gold zari work, perfect for weddings and festive occasions.' },
+  { id: 2, name: 'Embroidered Floral Saree', price: 1895, original: 3799, category: 'sarees', gender: 'women', badge: 'New', image: 'https://m.media-amazon.com/images/I/61Huq1mUJZL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Lightweight Floral Embroidered  saree with delicate embroidery, ideal for parties and celebrations.' },
+  { id: 3, name: 'Women Shimmer Saree', price: 1299, original: 2599, category: 'sarees', gender: 'women', badge: 'Hot', image: 'https://m.media-amazon.com/images/I/61f9Woie4eL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Women Shimmer Tissue Embroidered Saree, breathable comfort for daily wear.' },
+  { id: 4, name: 'Shimmer Organza Saree', price: 2199, original: 4399, category: 'sarees', gender: 'women', badge: 'Premium', image: 'https://m.media-amazon.com/images/I/41UhkV6mw+L._AC_UL480_FMwebp_QL65_.jpg', desc: 'Shimmer Organza Sequence Saree, lightweight elegance for special events.' },
+  { id: 5, name: 'AKHILAM Women Shimmer Saree', price: 2899, original: 5799, category: 'sarees', gender: 'women', badge: 'Trending', image: 'https://images-eu.ssl-images-amazon.com/images/I/71W7mCx3PEL._AC_UL330_SR330,330_.jpg', desc: 'Glamorous net saree with all-over sequin embroidery, a showstopper at any event.' },
+  { id: 6, name: 'Printed Daily Wear Saree', price: 1999, original: 3999, category: 'sarees', gender: 'women', badge: 'New', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/sari/o/w/n/free-panchi-ss-chiku-maroonblouse-infyshopy-unstitched-original-imahmdfzvg3dhny7.jpeg?q=70', desc: 'Stunning sequence work on rich fabric, perfect for evening functions.' },
+  { id: 7, name: 'Embroidered Net Saree', price: 3299, original: 6599, category: 'sarees', gender: 'women', badge: 'Premium', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/sari/0/b/l/free-golden-shrimmer-sadala-culture-unstitched-original-imahmy738ffy7hpz.jpeg?q=70', desc: 'Rich brocade with Modern patterns, heirloom quality craftsmanship.' },
+  { id: 8, name: 'Designer Floral Print Saree', price: 1599, original: 3199, category: 'sarees', gender: 'women', badge: 'Bestseller', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/sari/t/q/f/free-designer-digital-print-in-saree-parakhiya-fab-unstitched-original-imahmhjqfv8tzzfr.jpeg?q=70', desc: 'Contemporary Floral design  , modern art meets traditional drape.' },
+];
+
+const womenKurtis = [
+  { id: 9, name: 'Floral Print Kurta Palazzo Set', price: 899, original: 1799, category: 'kurtis', gender: 'women', badge: 'Bestseller', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/salwar-kurta-dupatta/3/e/u/xl-boota-maroon-oumad-original-imahgr9thghqmnh2.jpeg?q=70', desc: 'Beautiful floral print kurta with matching palazzo and dupatta, effortless elegance.' },
+  { id: 10, name: 'Embroidery Anarkali Set', price: 1499, original: 2999, category: 'kurtis', gender: 'women', badge: 'Trending', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/ethnic-set/i/t/j/xl-161-pink-xxs-rhet-fashion-original-imahkfmrhzgqzd2z.jpeg?q=70', desc: 'Flowing Anarkali with intricate embroidery, graceful silhouette for festive occasions.' },
+  { id: 11, name: 'Embroidered Kurta Trouser Set', price: 1199, original: 2399, category: 'kurtis', gender: 'women', badge: 'New', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/ethnic-set/f/v/a/l-golden-white-keshia-original-imahj49gzw8ppg6q.jpeg?q=70', desc: 'Structured kurta with embroidered details and tailored trouser pants.' },
+  { id: 12, name: 'Printed Kurta Trouser Dupatta', price: 999, original: 1999, category: 'kurtis', gender: 'women', badge: 'Hot', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/ethnic-set/y/r/4/m-1079-gekha-original-imahbfngq8mwjnu5.jpeg?q=70', desc: 'Vibrant printed kurta with matching trouser and dupatta, everyday chic.' },
+  { id: 13, name: 'Viscose Designer Short Kurti', price: 699, original: 1399, category: 'kurtis', gender: 'women', badge: 'New', image: 'https://m.media-amazon.com/images/I/61aeTbg4qaL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Trendy short kurti in soft viscose, versatile for jeans or palazzo pairing.' },
+  { id: 14, name: 'A-Line Cotton Kurti', price: 799, original: 1599, category: 'kurtis', gender: 'women', badge: 'Bestseller', image: 'https://m.media-amazon.com/images/I/51LnrohoG3L._AC_UL480_FMwebp_QL65_.jpg', desc: 'Classic A-line cut in breathable cotton, comfort meets style for daily wear.' },
+  { id: 15, name: 'Rayon Straight Kurti', price: 599, original: 1199, category: 'kurtis', gender: 'women', badge: 'Hot', image: 'https://m.media-amazon.com/images/I/41Jzh+qX-lL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Sleek straight-cut kurti in soft rayon, minimal and modern for office or casual.' },
+  { id: 16, name: 'Silk Festive Kurti Set', price: 1899, original: 3799, category: 'kurtis', gender: 'women', badge: 'Premium', image: 'https://m.media-amazon.com/images/I/61gz54VtSBL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Luxurious silk kurti with dupatta, rich festive wear for celebrations.' },
+];
+
+const womenParty = [
+  { id: 17, name: 'Bodycon Dress', price: 1299, original: 2599, category: 'party', gender: 'women', badge: 'Trending', image: 'https://m.media-amazon.com/images/I/51MubRSlFUL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Figure-hugging bodycon in rich maroon, bold and beautiful for night outs.' },
+  { id: 18, name: 'Sheer Bodycon Dress', price: 1599, original: 3199, category: 'party', gender: 'women', badge: 'New', image: 'https://img105.savana.com/v1/goods-pic/f46e1bfdfdc34afda0ab013fc6800d79_w360.webp', desc: 'Daring sheer panel bodycon, show-stopping design for the fashion-forward.' },
+  { id: 19, name: 'Sheer Mesh Party Dress', price: 1799, original: 3599, category: 'party', gender: 'women', badge: 'Premium', image: 'https://img105.savana.com/v1/goods-pic/d17b5944d8d2406e93adf658865e929a_w360.webp', desc: 'Elegant sheer mesh with strategic coverage, sophisticated party wear.' },
+  { id: 20, name: 'Metallic Decor Bodycon', price: 2199, original: 4399, category: 'party', gender: 'women', badge: 'Hot', image: 'https://img105.savana.com/v1/goods-pic/d51e393926f541619e4c58559f7e2942_w360.webp', desc: 'Metallic accents on sleek bodycon silhouette, glamorous and eye-catching.' },
+  { id: 21, name: 'Ruffle Bodycon Dress', price: 1399, original: 2799, category: 'party', gender: 'women', badge: 'Bestseller', image: 'https://img105.savana.com/v1/goods-pic/a67db3244ae4432783d0df84b5016ced_w360.webp', desc: 'Playful ruffle details on a flattering bodycon, feminine and fun.' },
+  { id: 22, name: 'A-Line Party Dress', price: 1499, original: 2999, category: 'party', gender: 'women', badge: 'New', image: 'https://img105.savana.com/v1/goods-pic/1f33e252ee864e25981377c9912ec0d1_w360.webp', desc: 'Classic A-line silhouette perfect for cocktail parties and dinner dates.' },
+  { id: 23, name: 'Tube Dress', price: 999, original: 1999, category: 'party', gender: 'women', badge: 'Trending', image: 'https://img105.savana.com/v1/goods-pic/66cec023849343888340d0a46aeea5f3_w360.webp', desc: 'Chic tube dress in bold color, effortless party-ready style.' },
+  { id: 24, name: 'Sequin Party Dress', price: 2499, original: 4999, category: 'party', gender: 'women', badge: 'Premium', image: 'https://img105.savana.com/v1/goods-pic/176f93b3c3ab49a4b2b38d753b7fd22b_w360.webp', desc: 'All-over sequin dress that sparkles under every light, ultimate party queen.' },
+];
+
+const womenTops = [
+  { id: 25, name: 'Printed Pullover T-Shirt', price: 499, original: 999, category: 'tops', gender: 'women', badge: 'Bestseller', image: 'https://img105.savana.com/v1/goods-pic/85c3d63c9bdb41e387fed3d8b59f9c7f_w360.webp', desc: 'Cozy printed pullover in soft fabric, casual everyday essential.' },
+  { id: 26, name: 'V neck Top', price: 399, original: 799, category: 'tops', gender: 'women', badge: 'Hot', image: 'https://img105.savana.com/v1/goods-pic/7c883a3ae9034b5798b2b3f2d528e1a9_w360.webp', desc: 'Bold graphic print tee, express your style with statement graphics.' },
+  { id: 27, name: 'Cropped Fashion Top', price: 549, original: 1099, category: 'tops', gender: 'women', badge: 'Trending', image: 'https://img105.savana.com/v1/goods-pic/c39d9a35015e48d08d1cf6b01abdb772_w360.webp', desc: 'Trendy cropped top that pairs perfectly with high-waist bottoms.' },
+  { id: 28, name: 'Ribbon Modern Top', price: 599, original: 1199, category: 'tops', gender: 'women', badge: 'New', image: 'https://img105.savana.com/v1/goods-pic/86ee0cee7d984ea4b57030aae4c7b8e8_w360.webp', desc: 'Relaxed oversized fit with cool graphic, street-style inspired.' },
+  { id: 29, name: 'Printed Essential Tee', price: 349, original: 699, category: 'tops', gender: 'women', badge: 'Bestseller', image: 'https://rukminim2.flixcart.com/image/206/246/xif0q/t-shirt/a/h/6/xl-plain-losache-original-imahmp5qtt6jhggf.jpeg?q=60', desc: 'Wardrobe staple plain tee in premium cotton, versatile layering piece.' },
+  { id: 30, name: 'Square neck Deginer Top', price: 649, original: 1299, category: 'tops', gender: 'women', badge: 'Premium', image: 'https://img105.savana.com/v1/goods-pic/d665e6c7102049448d399a5b99c6c2c2_w360.webp', desc: 'Elegant V-neck blouse in soft fabric, transitions from office to evening.' },
+  { id: 31, name: 'Gathered Top', price: 549, original: 1099, category: 'tops', gender: 'women', badge: 'Hot', image: 'https://img105.savana.com/v1/goods-pic/2c54ced1168a4514a96b381f96a0fc55_w360.webp', desc: 'Eye-catching color block design, modern and playful casual top.' },
+  { id: 32, name: 'Ribbon Tank Top', price: 799, original: 1599, category: 'tops', gender: 'women', badge: 'New', image: 'https://img105.savana.com/v1/goods-pic/219ee7bc5c4a4df9b51d65d8a436c245_w360.webp', desc: 'Luxurious satin camisole with delicate straps, elegant layering piece.' },
+];
+
+const womenJeans = [
+  { id: 33, name: 'Rhinestone Embellished Jeans', price: 999, original: 1999, category: 'jeans', gender: 'women', badge: 'New', image: 'https://img105.savana.com/v1/goods-pic/8a872640a07f459f954a547a214b8078_w360.webp', desc: 'Statement contrast stitching on classic straight-leg, edgy denim.' },
+  { id: 34, name: 'Bootcut Jeans', price: 1099, original: 2199, category: 'jeans', gender: 'women', badge: 'Bestseller', image: 'https://img105.savana.com/v1/goods-pic/61b70f3c8a2d4856bf025d4e34bc803b_w360.webp', desc: 'Flattering high-waist straight cut, elongates your silhouette beautifully.' },
+  { id: 35, name: 'Floral Embroidered Jeans', price: 1199, original: 2399, category: 'jeans', gender: 'women', badge: 'Trending', image: 'https://img105.savana.com/v1/goods-pic/1f63658c53c8493289e94f2a62d19cf0_w360.webp', desc: 'Deep dark wash with contrast stitching, versatile dark denim.' },
+  { id: 36, name: 'Light-wash High-rises Jeans', price: 899, original: 1799, category: 'jeans', gender: 'women', badge: 'Hot', image: 'https://img105.savana.com/v1/goods-pic/e7120e22a1704585a1af56b41d103753_w360.webp', desc: 'Relaxed mom fit with vintage wash, retro-cool everyday denim.' },
+  { id: 37, name: 'Wide Leg Palazzo Jeans', price: 1049, original: 2099, category: 'jeans', gender: 'women', badge: 'New', image: 'https://img105.savana.com/v1/goods-pic/5b988b7f31874df9b6587a7a6b24a4d8_w360.webp', desc: 'Flowing wide-leg silhouette in soft denim, breezy and comfortable.' },
+  { id: 38, name: 'Straight  Jeans', price: 949, original: 1899, category: 'jeans', gender: 'women', badge: 'Bestseller', image: 'https://img105.savana.com/v1/goods-pic/1c32ece80efd44b793293ef8fdb9ceb9_w360.webp', desc: 'Sleek skinny fit cropped at the ankle, perfect with heels or sneakers.' },
+  { id: 39, name: 'Distressed Boyfriend Jeans', price: 1149, original: 2299, category: 'jeans', gender: 'women', badge: 'Premium', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/jean/x/g/o/40-1205-straight-fit-dark-blue-vbeauti-original-imahdnm3zhvwzrxj.jpeg?q=70', desc: 'Laid-back boyfriend fit with artful distressing, effortlessly cool.' },
+  { id: 40, name: 'Bootcut Stretch Jeans', price: 999, original: 1999, category: 'jeans', gender: 'women', badge: 'Trending', image: 'https://img105.savana.com/v1/goods-pic/639551a8038b4e46a3df70b6774768e5_w360.webp', desc: 'Classic bootcut with stretch comfort, flattering from every angle.' },
+];
+
+
+const menParty = [
+  { id: 41, name: 'Sequin Party Shirt', price: 1299, original: 2599, category: 'party', gender: 'men', badge: 'Trending', image: 'https://m.media-amazon.com/images/I/61s8IqoMLJL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Glamorous sequin embellished shirt, perfect for night parties and clubs.' },
+  { id: 42, name: 'Velvet Dinner Jacket', price: 2499, original: 4999, category: 'party', gender: 'men', badge: 'Premium', image: 'https://m.media-amazon.com/images/I/61SB14qT0EL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Luxurious velvet blazer for sophisticated evening events.' },
+  { id: 43, name: 'Metallic Club Shirt', price: 1099, original: 2199, category: 'party', gender: 'men', badge: 'New', image: 'https://m.media-amazon.com/images/I/61AsTpnqgjL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Eye-catching metallic finish shirt, stand out at any party.' },
+  { id: 44, name: 'Satin Wedding Kurta', price: 1899, original: 3799, category: 'party', gender: 'men', badge: 'Bestseller', image: 'https://m.media-amazon.com/images/I/61s-ohqlfLL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Elegant satin kurta for weddings and festive celebrations.' },
+];
+
+const menShirts = [
+  { id: 45, name: 'Classic Formal Shirt', price: 899, original: 1799, category: 'shirts', gender: 'men', badge: 'Bestseller', image: 'https://m.media-amazon.com/images/I/61SB14qT0EL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Crisp formal shirt in premium cotton, sharp and professional for any occasion.' },
+  { id: 46, name: 'Casual Linen Shirt', price: 799, original: 1599, category: 'shirts', gender: 'men', badge: 'New', image: 'https://m.media-amazon.com/images/I/61s-ohqlfLL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Breathable linen shirt for relaxed weekends, effortless smart-casual style.' },
+  { id: 47, name: 'Oversized Street Shirt', price: 999, original: 1999, category: 'shirts', gender: 'men', badge: 'Trending', image: 'https://m.media-amazon.com/images/I/61AsTpnqgjL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Oversized fit with bold pattern, streetwear-inspired statement piece.' },
+  { id: 48, name: 'Slim Fit Checked Shirt', price: 699, original: 1399, category: 'shirts', gender: 'men', badge: 'Hot', image: 'https://m.media-amazon.com/images/I/518KCatSsJL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Timeless checked pattern in slim fit, wardrobe essential for every man.' },
+  { id: 49, name: 'Textured Party Shirt', price: 1099, original: 2199, category: 'shirts', gender: 'men', badge: 'Premium', image: 'https://m.media-amazon.com/images/I/61s8IqoMLJL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Rich textured fabric with sheen, perfect for evening events and parties.' },
+  { id: 50, name: 'Stylish Textured Shirt', price: 849, original: 1699, category: 'shirts', gender: 'men', badge: 'New', image: 'https://m.media-amazon.com/images/I/61eujs2e9rL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Modern textured shirt with subtle pattern, elevates any casual outfit.' },
+  { id: 51, name: 'Western Denim Shirt', price: 1199, original: 2399, category: 'shirts', gender: 'men', badge: 'Bestseller', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/shirt/w/b/2/m-nk111-nook-original-imahns78wjpyq8xy.jpeg?q=70', desc: 'Rugged denim shirt with western details, classic American style.' },
+  { id: 52, name: 'Classic Check Shirt', price: 749, original: 1499, category: 'shirts', gender: 'men', badge: 'Hot', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/shirt/q/r/i/4xl-ez-check-006-blue-rodeiz-original-imahj4ug6dkhhjmg.jpeg?q=70', desc: 'Clean button-down collar in classic check, versatile office-to-weekend shirt.' },
+];
+
+const menTshirts = [
+  { id: 53, name: 'Classic Crew Neck Tee', price: 499, original: 999, category: 'tshirts', gender: 'men', badge: 'Bestseller', image: 'https://m.media-amazon.com/images/I/61WYx598KKL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Essential crew neck tee in premium cotton, the foundation of every outfit.' },
+  { id: 54, name: 'Half sleeve Tee', price: 599, original: 1199, category: 'tshirts', gender: 'men', badge: 'Trending', image: 'https://m.media-amazon.com/images/I/61kYmRqjzaL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Bold oversized graphic tee, streetwear attitude with premium comfort.' },
+  { id: 55, name: 'Oversized Graphic Tee', price: 649, original: 1299, category: 'tshirts', gender: 'men', badge: 'New', image: 'https://m.media-amazon.com/images/I/61v7V-yfRZL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Unique dotted pattern on relaxed oversized fit, standout casual piece.' },
+  { id: 56, name: 'Printed Shoulder Tee', price: 549, original: 1099, category: 'tshirts', gender: 'men', badge: 'Hot', image: 'https://m.media-amazon.com/images/I/71-n7WJqBUL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Classic stripe pattern with V-neck, nautical-inspired casual style.' },
+  { id: 57, name: 'Classic Polo Tee', price: 699, original: 1399, category: 'tshirts', gender: 'men', badge: 'Premium', image: 'https://m.media-amazon.com/images/I/61cV3X85KTL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Eye-catching shoulder print detail, modern athletic-inspired design.' },
+  { id: 58, name: 'Polo Sport Tee', price: 799, original: 1599, category: 'tshirts', gender: 'men', badge: 'New', image: 'https://m.media-amazon.com/images/I/41ej2D9ruAL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Classic polo collar in sporty pique fabric, smart-casual versatility.' },
+  { id: 59, name: 'Minimal Logo Tee', price: 449, original: 899, category: 'tshirts', gender: 'men', badge: 'Bestseller', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/t-shirt/z/5/w/xl-maroon-vayrox-original-imahnkbjnhdmv9hg.jpeg?q=70', desc: 'Clean minimal logo on soft cotton, understated style that speaks volumes.' },
+  { id: 60, name: 'Henley Long Sleeve Tee', price: 649, original: 1299, category: 'tshirts', gender: 'men', badge: 'Trending', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/t-shirt/z/j/w/xxl-rm34-beig-rufica-original-imahhffn2cbu326y.jpeg?q=70', desc: 'Classic Henley neckline in long sleeve, rugged yet refined layering piece.' },
+];
+
+const menJeans = [
+  { id: 61, name: 'Relaxed Fit Black Jeans', price: 999, original: 1999, category: 'jeans', gender: 'men', badge: 'Bestseller', image: 'https://m.media-amazon.com/images/I/31N49MuwffL._AC_UL480_FMwebp_QL65_.jpg', desc: 'Classic relaxed fit in medium blue wash, everyday comfort denim.' },
+  { id: 62, name: 'Light Grey Slim Jeans', price: 1099, original: 2199, category: 'jeans', gender: 'men', badge: 'New', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/jean/f/k/w/30-light-gry-28-wanted-original-imah9nhszmjfkngc.jpeg?q=70', desc: 'Modern light grey wash in slim fit, contemporary casual staple.' },
+  { id: 63, name: 'Straight Blue Jeans', price: 1199, original: 2399, category: 'jeans', gender: 'men', badge: 'Trending', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/jean/q/v/4/32-denimj-lb-baggy21-houseofcommon-original-imah4y7wtpmpadh7.jpeg?q=70', desc: 'Deep indigo straight fit jeans, versatile from office to weekend.' },
+  { id: 64, name: 'Baggy Wide Leg Jeans', price: 1299, original: 2599, category: 'jeans', gender: 'men', badge: 'Hot', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/jean/w/5/t/32-xc-102-azureattire-original-imahzf6zwxkz5ynz.jpeg?q=70', desc: 'Trendy baggy wide-leg silhouette, streetwear-inspired relaxed denim.' },
+  { id: 65, name: 'Distressed Jeans', price: 1149, original: 2299, category: 'jeans', gender: 'men', badge: 'Premium', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/jean/p/u/j/34-kttmensjeans64-kotty-original-imah9yhzjgeagntr.jpeg?q=70', desc: 'Artfully distressed slim jeans, edgy character with refined fit.' },
+  { id: 66, name: 'Kotty Relaxed White Jeans', price: 949, original: 1899, category: 'jeans', gender: 'men', badge: 'New', image: 'https://rukminim2.flixcart.com/image/206/246/xif0q/jean/y/t/3/34-loose-fitt-white-jeans-wearworld-original-imahjgx4ushswpwz.jpeg?q=60', desc: 'Relaxed fit from Kotty, all-day comfort with classic style.' },
+  { id: 67, name: 'Baggy Jeans', price: 1049, original: 2099, category: 'jeans', gender: 'men', badge: 'Trending', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/jean/v/3/m/34-ca-101-azureattire-original-imahnzynz45h2hz6.jpeg?q=70', desc: 'Bold jeans in loose fit, fresh and fashion-forward warm-weather style.' },
+  { id: 68, name: 'Dark Blue Relaxed Jeans', price: 899, original: 1799, category: 'jeans', gender: 'men', badge: 'Bestseller', image: 'https://rukminim2.flixcart.com/image/612/612/xif0q/jean/b/e/j/26-lr-baggy-272-dark-blue-levorce-original-imahnwsx6bqvgahu.jpeg?q=70', desc: 'Deep blue relaxed fit, the dependable everyday pair you reach for first.' },
+];
 
 export const products = [
-  {
-    id: '1',
-    name: 'Midnight Velvet Gown',
-    category: 'Dresses',
-    price: 2850,
-    image: U('1515886657613-9f3515b0c78f'),
-    description: 'An exquisite floor-length gown in midnight velvet, draped to perfection for the modern couture woman.',
-    sizes: ['XS', 'S', 'M', 'L', 'XL'],
-    featured: true,
-  },
-  {
-    id: '2',
-    name: 'Silk Éclat Dress',
-    category: 'Dresses',
-    price: 1980,
-    image: U('1539109136881-3be0616acf4b'),
-    description: 'A flowing silk dress with an ethereal finish, perfect for intimate gatherings and evening affairs.',
-    sizes: ['XS', 'S', 'M', 'L'],
-    featured: true,
-  },
-  {
-    id: '3',
-    name: 'Obsidian Column Gown',
-    category: 'Dresses',
-    price: 3400,
-    image: U('1490481651871-ab68de25d43d'),
-    description: 'Structured column silhouette in heavy obsidian crepe — a statement in restrained luxury.',
-    sizes: ['S', 'M', 'L', 'XL'],
-    featured: false,
-  },
-  {
-    id: '4',
-    name: 'Ivory Lace Atelier',
-    category: 'Dresses',
-    price: 2200,
-    image: U('1469334031218-e382a71b716b'),
-    description: 'Hand-finished ivory lace with delicate embroidery details along the bodice and hem.',
-    sizes: ['XS', 'S', 'M', 'L', 'XL'],
-    featured: false,
-  },
-  {
-    id: '5',
-    name: 'Gold Chain Minaudière',
-    category: 'Accessories',
-    price: 890,
-    image: U('1553062407-98eeb64c6a62'),
-    description: 'An evening clutch with hand-linked gold chains — a timeless companion for gala evenings.',
-    sizes: ['One Size'],
-    featured: true,
-  },
-  {
-    id: '6',
-    name: 'Cashmere Silk Scarf',
-    category: 'Accessories',
-    price: 450,
-    image: U('1584917865442-de89df76afd3'),
-    description: 'Woven from pure cashmere and silk, printed with our signature house motif.',
-    sizes: ['One Size'],
-    featured: false,
-  },
-  {
-    id: '7',
-    name: 'Baroque Pearl Collar',
-    category: 'Accessories',
-    price: 1250,
-    image: U('1492707892479-7bc8d5a4ee93'),
-    description: 'Freshwater baroque pearls on an 18k gold-fill collar setting, each pearl hand-selected.',
-    sizes: ['One Size'],
-    featured: false,
-  },
-  {
-    id: '8',
-    name: 'Velvet Evening Bag',
-    category: 'Accessories',
-    price: 720,
-    image: U('1548036928-88e4d3d6d0b6'),
-    description: 'Structured midnight velvet clutch with a faceted gold clasp closure.',
-    sizes: ['One Size'],
-    featured: true,
-  },
-  {
-    id: '9',
-    name: 'Noir Cashmere Coat',
-    category: 'Outerwear',
-    price: 4200,
-    image: U('1551232864-3f0890e1776c'),
-    description: 'Double-faced cashmere in a refined noir finish, cut with an effortless drape.',
-    sizes: ['XS', 'S', 'M', 'L', 'XL'],
-    featured: false,
-  },
-  {
-    id: '10',
-    name: 'Velvet Opera Cape',
-    category: 'Outerwear',
-    price: 3100,
-    image: U('1520367745676-56196f9bf51e'),
-    description: 'A sweeping opera-length cape in crushed velvet with a silk charmeuse lining.',
-    sizes: ['S', 'M', 'L'],
-    featured: false,
-  },
-  {
-    id: '11',
-    name: 'Tailored Gold Blazer',
-    category: 'Outerwear',
-    price: 2600,
-    image: U('1544441893-675973e31985'),
-    description: 'Structured blazer in antique gold jacquard, fully lined in duchess satin.',
-    sizes: ['XS', 'S', 'M', 'L', 'XL'],
-    featured: false,
-  },
-  {
-    id: '12',
-    name: 'Ivory Brocade Jacket',
-    category: 'Outerwear',
-    price: 2950,
-    image: U('1507003211169-0a1dd7228f2d'),
-    description: 'A brocade jacket woven with floral motifs in ivory and champagne thread, fully lined.',
-    sizes: ['S', 'M', 'L', 'XL'],
-    featured: false,
-  },
-]
+  ...womenSarees, ...womenKurtis, ...womenParty, ...womenTops,
+  ...womenJeans, ...menParty, ...menShirts, ...menTshirts, ...menJeans,
+];
+
+export const FALLBACK_IMG = FALLBACK;
+
+export const categories = [
+  { name: 'Party Wear', slug: 'party', gender: 'women', image: 'https://img105.savana.com/v1/goods-pic/d17b5944d8d2406e93adf658865e929a_w360.webp', count: 8 },
+  { name: 'Sarees', slug: 'sarees', gender: 'women', image: 'https://m.media-amazon.com/images/I/71Pe4CizabL._AC_SY290_.jpg', count: 8 },
+  { name: 'Kurtis', slug: 'kurtis', gender: 'women', image: 'https://m.media-amazon.com/images/I/515Looc424L._AC_UL480_FMwebp_QL65_.jpg', count: 8 },
+  { name: 'Women Tops', slug: 'tops', gender: 'women', image: 'https://img105.savana.com/v1/goods-pic/2c54ced1168a4514a96b381f96a0fc55_w360.webp', count: 8 },
+  { name: 'Women Jeans', slug: 'jeans', gender: 'women', image: 'https://img105.savana.com/v1/goods-pic/8a872640a07f459f954a547a214b8078_w360.webp', count: 8 },
+  { name: 'Men Party Wear', slug: 'party', gender: 'men', image: 'https://m.media-amazon.com/images/I/61s8IqoMLJL._AC_UL480_FMwebp_QL65_.jpg', count: 4 },
+  { name: 'Men Shirts', slug: 'shirts', gender: 'men', image: 'https://m.media-amazon.com/images/I/61SB14qT0EL._AC_UL480_FMwebp_QL65_.jpg', count: 8 },
+  { name: "Men T-Shirts", slug: 'tshirts', gender: 'men', image: 'https://m.media-amazon.com/images/I/61WYx598KKL._AC_UL480_FMwebp_QL65_.jpg', count: 8 },
+  { name: 'Men Jeans', slug: 'jeans', gender: 'men', image: 'https://m.media-amazon.com/images/I/31N49MuwffL._AC_UL480_FMwebp_QL65_.jpg', count: 8 },
+];
+
+export const categorySlugs = ['party', 'sarees', 'kurtis', 'tops', 'jeans', 'shirts', 'tshirts'];
