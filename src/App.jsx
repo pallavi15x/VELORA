@@ -62,28 +62,24 @@ function AppInner() {
             {letters.map((l, i) => {
               if (l === 'O') {
                 return (
-                  <span key={i} className="intro-letter letter-o" style={{ animationDelay: `${i * 0.1}s` }}>
-                    {/* Advanced 3D Gimbal Rings */}
-                    <span className="o-gimbal gimbal-1" />
-                    <span className="o-gimbal gimbal-2" />
-                    <span className="o-gimbal gimbal-3" />
+                  <span key={i} className="intro-letter letter-o" style={{ animationDelay: `${i * 0.15}s` }}>
+                    <svg className="luxury-o-ring" viewBox="0 0 100 100">
+                      <circle cx="50" cy="50" r="48" />
+                    </svg>
                     <span className="letter-o-inner">O</span>
                   </span>
                 );
               }
               return (
-                <span key={i} className={`intro-letter letter-${l.toLowerCase()}`} style={{ animationDelay: `${i * 0.1}s` }}>
-                  <span className="letter-glare" />
+                <span key={i} className={`intro-letter letter-${l.toLowerCase()}`} style={{ animationDelay: `${i * 0.15}s` }}>
                   {l}
                 </span>
               );
             })}
           </div>
 
-          <div className="intro-line">
-            <span className="intro-line-glow" />
-          </div>
-          <div className="intro-tagline">Discover Fashion That Defines You</div>
+          <div className="intro-line" />
+          <div className="intro-tagline">Curated Elegance</div>
         </div>
       )}
       <ScrollToTop />
